@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scientific Calculator with Currency Converter</title>
+    <title>Scientific Calculator</title>
     <style>
         /* Add some basic styling if needed */
         body {
@@ -21,10 +21,6 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        #currencyConverter {
-            margin-top: 20px;
         }
 
         input {
@@ -49,45 +45,39 @@
     <input type="text" id="display" disabled>
     <br>
     <button onclick="clearDisplay()">C</button>
-    <!-- ... (previous buttons) ... -->
-    <button onclick="convertCurrency()">Convert</button>
-</div>
-
-<div id="currencyConverter">
-    <h2>Currency Converter</h2>
-    <label for="amount">Amount:</label>
-    <input type="number" id="amount">
-    <label for="fromCurrency">From:</label>
-    <select id="fromCurrency">
-        <option value="USD">USD</option>
-        <!-- Add more currency options as needed -->
-    </select>
-    <label for="toCurrency">To:</label>
-    <select id="toCurrency">
-        <option value="EUR">EUR</option>
-        <!-- Add more currency options as needed -->
-    </select>
-    <br>
-    <button onclick="convertCurrency()">Convert</button>
-    <p id="convertedAmount"></p>
+    <button onclick="appendToDisplay('/')">/</button>
+    <button onclick="appendToDisplay('*')">*</button>
+    <button onclick="appendToDisplay('7')">7</button>
+    <button onclick="appendToDisplay('8')">8</button>
+    <button onclick="appendToDisplay('9')">9</button>
+    <button onclick="appendToDisplay('-')">-</button>
+    <button onclick="appendToDisplay('4')">4</button>
+    <button onclick="appendToDisplay('5')">5</button>
+    <button onclick="appendToDisplay('6')">6</button>
+    <button onclick="appendToDisplay('+')">+</button>
+    <button onclick="appendToDisplay('1')">1</button>
+    <button onclick="appendToDisplay('2')">2</button>
+    <button onclick="appendToDisplay('3')">3</button>
+    <button onclick="calculateResult()">=</button>
+    <button onclick="appendToDisplay('0')">0</button>
+    <button onclick="appendToDisplay('.')">.</button>
 </div>
 
 <script>
-    function convertCurrency() {
-        const amount = document.getElementById('amount').value;
-        const fromCurrency = document.getElementById('fromCurrency').value;
-        const toCurrency = document.getElementById('toCurrency').value;
+    function appendToDisplay(value) {
+        document.getElementById('display').value += value;
+    }
 
-        fetch(`https://open.er-api.com/v6/latest/${fromCurrency}?apikey=0c4ef08d83fdf9b5a3d1bf60`)
-            .then(response => response.json())
-            .then(data => {
-                const exchangeRate = data.rates[toCurrency];
-                const convertedAmount = (amount * exchangeRate).toFixed(2);
-                document.getElementById('convertedAmount').innerText = `${amount} ${fromCurrency} = ${convertedAmount} ${toCurrency}`;
-            })
-            .catch(error => {
-                console.error('Error fetching exchange rates:', error);
-            });
+    function clearDisplay() {
+        document.getElementById('display').value = '';
+    }
+
+    function calculateResult() {
+        try {
+            document.getElementById('display').value = eval(document.getElementById('display').value);
+        } catch (error) {
+            document.getElementById('display').value = 'Error';
+        }
     }
 </script>
 
