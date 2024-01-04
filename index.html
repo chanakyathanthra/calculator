@@ -78,7 +78,7 @@
         const fromCurrency = document.getElementById('fromCurrency').value;
         const toCurrency = document.getElementById('toCurrency').value;
 
-        fetch(`https://open.er-api.com/v6/latest/${fromCurrency}?apikey=YOUR_API_KEY`)
+        fetch(`https://open.er-api.com/v6/latest/${fromCurrency}?apikey=0c4ef08d83fdf9b5a3d1bf60`)
             .then(response => response.json())
             .then(data => {
                 const exchangeRate = data.rates[toCurrency];
